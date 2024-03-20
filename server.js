@@ -42,12 +42,13 @@ io.on('connection', socket => {
       });
   
       socket.on('toggle-mute', isMuted => {
-        socket.to(roomId).broadcast.emit('peer-toggle-mute', { userId, isMuted }); // Broadcasting mute action
-      });
-  
-      socket.on('toggle-pause', isPaused => {
-        socket.to(roomId).broadcast.emit('peer-toggle-pause', { userId, isPaused }); // Broadcasting pause action
-      });
+  socket.to(roomId).broadcast.emit('peer-toggle-mute', { userId, isMuted }); // Broadcasting mute action
+});
+
+socket.on('toggle-pause', isPaused => {
+  socket.to(roomId).broadcast.emit('peer-toggle-pause', { userId, isPaused }); // Broadcasting pause action
+});
+
     });
   });
 
