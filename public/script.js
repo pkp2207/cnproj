@@ -80,8 +80,6 @@ function addVideoStream(video, stream) {
 }
 
 
-
-
 // Mute/unmute audio
 muteButton.addEventListener('click', () => {
   isMuted = !isMuted;
@@ -102,3 +100,24 @@ pauseButton.addEventListener('click', () => {
   }
   socket.emit('toggle-pause', isPaused); // Emit pause status change
 });
+
+// Listen for mute toggle event from server
+socket.on('peer-toggle-mute', ({ userId, isMuted }) => {
+  const peerVideo = document.getElementById(userId);
+  if (peerVideo) {
+    peerVideo.muted = isMuted;
+  }
+});
+
+// Listen for pause toggle event from server
+socket.on('peer-toggle-pause', ({ userId, isPaused }) => {
+  const peerVideo = document.getElementById(userId);
+  if (peerVideo) {
+    if (isPaused) {
+      peerVideo.pause();
+    } else {
+      peerVideo.play();
+    }
+  }
+});
+
