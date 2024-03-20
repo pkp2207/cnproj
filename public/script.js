@@ -87,6 +87,7 @@ muteButton.addEventListener('click', () => {
   isMuted = !isMuted;
   myVideo.muted = isMuted;
   muteButton.innerText = isMuted ? 'Unmute' : 'Mute';
+  socket.emit('toggle-mute', isMuted); // Emit mute status change
 });
 
 // Pause/resume video
@@ -99,5 +100,5 @@ pauseButton.addEventListener('click', () => {
     myVideo.play();
     pauseButton.innerText = 'Pause';
   }
+  socket.emit('toggle-pause', isPaused); // Emit pause status change
 });
-
